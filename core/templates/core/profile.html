@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}My Profile - QazFinance{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- Dashboard Sidebar -->
+    <aside class="dashboard-sidebar">
+        <nav class="dashboard-nav">
+            <a href="{% url 'dashboard' %}" class="nav-item">
+                <span class="nav-icon">🏠</span>
+                <span>Dashboard Home</span>
+            </a>
+            <a href="{% url 'profile' %}" class="nav-item active">
+                <span class="nav-icon">👤</span>
+                <span>My Profile</span>
+            </a>
+            <a href="{% url 'blog_list' %}" class="nav-item">
+                <span class="nav-icon">📝</span>
+                <span>Articles</span>
+            </a>
+            <a href="{% url 'for_students' %}" class="nav-item">
+                <span class="nav-icon">🎓</span>
+                <span>For Students</span>
+            </a>
+            <a href="{% url 'events' %}" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span>Upcoming Events</span>
+            </a>
+            <a href="{% url 'we_are_looking_for' %}" class="nav-item">
+                <span class="nav-icon">➕</span>
+                <span>We Are Looking For</span>
+            </a>
+            <a href="{% url 'logout' %}" class="nav-item">
+                <span class="nav-icon">🚪</span>
+                <span>Log Out</span>
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- Profile Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-header">
+            <h1>My Profile</h1>
+            <p>Update your profile information</p>
+        </div>
+        
+        <div class="profile-content fade-in">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="profile-form-container">
+                <form method="post" class="profile-form">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-error">
+                            <ul>
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                        {{ form.full_name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.role.id_for_label }}">Role</label>
+                        {{ form.role }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.city.id_for_label }}">City</label>
+                        {{ form.city }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.school.id_for_label }}">School/University</label>
+                        {{ form.school }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.bio.id_for_label }}">Bio</label>
+                        {{ form.bio }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Account Information</label>
+                        <div class="account-info">
+                            <p><strong>Username:</strong> {{ user.username }}</p>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+

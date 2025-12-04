@@ -1,0 +1,143 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - QazFinance{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- Dashboard Sidebar -->
+    <aside class="dashboard-sidebar">
+        <nav class="dashboard-nav">
+            <a href="{% url 'dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                <span class="nav-icon">🏠</span>
+                <span>Dashboard Home</span>
+            </a>
+            <a href="{% url 'profile' %}" class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                <span class="nav-icon">👤</span>
+                <span>My Profile</span>
+            </a>
+            <a href="{% url 'blog_list' %}" class="nav-item">
+                <span class="nav-icon">📝</span>
+                <span>Articles</span>
+            </a>
+            <a href="{% url 'for_students' %}" class="nav-item">
+                <span class="nav-icon">🎓</span>
+                <span>For Students</span>
+            </a>
+            <a href="{% url 'events' %}" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span>Upcoming Events</span>
+            </a>
+            <a href="{% url 'we_are_looking_for' %}" class="nav-item">
+                <span class="nav-icon">➕</span>
+                <span>We Are Looking For</span>
+            </a>
+            <a href="{% url 'logout' %}" class="nav-item">
+                <span class="nav-icon">🚪</span>
+                <span>Log Out</span>
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- Dashboard Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+            <p>Welcome back, {{ user.profile.full_name|default:user.username }}!</p>
+        </div>
+        
+        <div class="dashboard-overview">
+            <div class="overview-cards">
+                <div class="overview-card fade-in">
+                    <div class="card-icon">📝</div>
+                    <div class="card-content">
+                        <h3>{{ articles_count }}</h3>
+                        <p>Total Articles</p>
+                    </div>
+                </div>
+                <div class="overview-card fade-in">
+                    <div class="card-icon">🎓</div>
+                    <div class="card-content">
+                        <h3>{{ student_articles_count }}</h3>
+                        <p>Student Articles</p>
+                    </div>
+                </div>
+                <div class="overview-card fade-in">
+                    <div class="card-icon">📅</div>
+                    <div class="card-content">
+                        <h3>NFIC 202X</h3>
+                        <p>Main Event</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-highlights">
+            <!-- NFIC Project Summary -->
+            <div class="highlight-card fade-in">
+                <h2>National Financial Intelligence Challenge (NFIC)</h2>
+                <p>Our flagship competition with 600+ participants across 10+ cities. Currently fundraising for our goal of 750,000 ₸.</p>
+                <div class="card-actions">
+                    <a href="{% url 'events' %}" class="btn btn-outline">Learn More</a>
+                    <a href="{% url 'we_are_looking_for' %}" class="btn btn-primary">Become a Sponsor</a>
+                </div>
+            </div>
+            
+            <!-- We Have Launched Program -->
+            <div class="highlight-card fade-in">
+                <div class="badge">New Program</div>
+                <h2>We Have Launched!</h2>
+                <p>Free educational program in partnership with Baqytty Shanyraq Foundation. Starting December 13th, every Saturday and Sunday.</p>
+                <div class="card-actions">
+                    <a href="{% url 'we_are_open' %}" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+            
+            <!-- Join the Team -->
+            <div class="highlight-card fade-in">
+                <h2>Join the Team</h2>
+                <p>We're looking for active team members (SMM, MENTORSHIP, TECH) to help with Olympiads and educational projects.</p>
+                <div class="card-actions">
+                    <a href="{% url 'we_are_looking_for' %}" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+        </div>
+        
+        {% if recent_articles %}
+        <div class="dashboard-recent">
+            <h2>Recent Articles</h2>
+            <div class="recent-articles-list">
+                {% for article in recent_articles %}
+                <div class="recent-article-item fade-in">
+                    <div class="article-meta">
+                        <span class="article-category">{{ article.get_category_display }}</span>
+                        <time>{{ article.published_date|date:"M d, Y" }}</time>
+                    </div>
+                    <h3><a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a></h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Mobile sidebar toggle for dashboard
+    if (window.innerWidth <= 768) {
+        const sidebar = document.querySelector('.dashboard-sidebar');
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'dashboard-sidebar-toggle';
+        toggleBtn.innerHTML = '☰';
+        toggleBtn.onclick = () => sidebar.classList.toggle('open');
+        
+        const dashboardHeader = document.querySelector('.dashboard-header');
+        if (dashboardHeader) {
+            dashboardHeader.insertBefore(toggleBtn, dashboardHeader.firstChild);
+        }
+    }
+</script>
+{% endblock %}
+

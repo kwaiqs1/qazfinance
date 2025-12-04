@@ -1,0 +1,163 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}What We Do - QazFinance{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title fade-in">What We Do</h1>
+    </div>
+</section>
+
+<section class="what-we-do-section">
+    <div class="container">
+        <!-- 1. Competitions -->
+        <div class="what-block fade-in">
+            <div class="what-block-header">
+                <div class="block-number">01</div>
+                <h2>Organizing national competitions and olympiads in finance</h2>
+            </div>
+            <div class="what-block-content">
+                <div class="nfic-highlight">
+                    <h3>Main project: NFIC (National Financial Intelligence Challenge)</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="600">0</div>
+                            <div class="stat-label">+ participants</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="10">0</div>
+                            <div class="stat-label">+ cities</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">$1,500–$2,000</div>
+                            <div class="stat-label">Prize fund</div>
+                        </div>
+                    </div>
+                    <p class="nfic-description">
+                        Participants solve real-life cases on investments and financial analysis, with one online round and two offline rounds.
+                    </p>
+                </div>
+                <p><strong>Additional competitions:</strong> two national olympiads on financial literacy and investments.</p>
+            </div>
+        </div>
+
+        <!-- 2. Online Educational Platform -->
+        <div class="what-block fade-in">
+            <div class="what-block-header">
+                <div class="block-number">02</div>
+                <h2>Online Educational Platform</h2>
+            </div>
+            <div class="what-block-content">
+                <ul class="feature-list">
+                    <li>Free courses on financial literacy, investing, and personal finance management.</li>
+                    <li>Interactive lessons, quizzes, and certificates.</li>
+                </ul>
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-outline">Explore Courses</a>
+                    <span class="badge">Coming soon</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Educational programs for children with disabilities -->
+        <div class="what-block fade-in">
+            <div class="what-block-header">
+                <div class="block-number">03</div>
+                <h2>Educational programs for children with disabilities</h2>
+            </div>
+            <div class="what-block-content">
+                <ul class="feature-list">
+                    <li>Free offline and online lessons.</li>
+                    <li>Individualized approach.</li>
+                    <li>Socially significant contribution.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. Blog and Social Media -->
+        <div class="what-block fade-in">
+            <div class="what-block-header">
+                <div class="block-number">04</div>
+                <h2>Blog and Social Media</h2>
+            </div>
+            <div class="what-block-content">
+                <ul class="feature-list">
+                    <li>Daily publications on investment, personal finance, and economics.</li>
+                    <li>Analysis of current financial cases.</li>
+                    <li>Promoting financial literacy among young people.</li>
+                </ul>
+                <a href="{% url 'blog_list' %}" class="btn btn-primary">View Blog</a>
+            </div>
+        </div>
+
+        <!-- 5. Hub and Community -->
+        <div class="what-block fade-in">
+            <div class="what-block-header">
+                <div class="block-number">05</div>
+                <h2>Hub and Community</h2>
+            </div>
+            <div class="what-block-content">
+                <p>Platform for learning, discussion, and experience sharing.</p>
+                <div class="community-features">
+                    <div class="community-feature">
+                        <div class="feature-icon">👨‍🏫</div>
+                        <h4>Mentoring Programs</h4>
+                    </div>
+                    <div class="community-feature">
+                        <div class="feature-icon">🚀</div>
+                        <h4>Leadership Projects</h4>
+                    </div>
+                    <div class="community-feature">
+                        <div class="feature-icon">🤲</div>
+                        <h4>Volunteer Initiatives</h4>
+                    </div>
+                    <div class="community-feature">
+                        <div class="feature-icon">📊</div>
+                        <h4>Investment Simulations</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animate counters
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.stat-number[data-target]');
+        const animateCounter = (counter) => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = Math.floor(current) + '+';
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target + '+';
+                }
+            };
+            updateCounter();
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(counter => observer.observe(counter));
+    });
+</script>
+{% endblock %}
+

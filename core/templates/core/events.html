@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Upcoming Events - QazFinance{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title fade-in">Upcoming Events</h1>
+    </div>
+</section>
+
+<section class="events-section">
+    <div class="container">
+        <div class="events-content fade-in">
+            <p class="events-intro">
+                Hosting two national Olympics, and also the National Financial Intelligence Challenge (NFIC) is our main goal. NFIC is our largest project, and we're currently raising a budget of 750,000 for it. We're currently working with sponsors. We also plan to launch a program to begin training at a center for children from low-income and disadvantaged backgrounds.
+            </p>
+            
+            <!-- NFIC Event Card -->
+            <div class="event-card featured">
+                <div class="event-header">
+                    <h2>National Financial Intelligence Challenge (NFIC) 202X</h2>
+                    <span class="status-badge fundraising">Fundraising in progress</span>
+                </div>
+                <div class="event-description">
+                    <p>Our flagship competition bringing together 600+ participants from 10+ cities to solve real-life cases on investments and financial analysis. One online round and two offline rounds with a prize fund of $1,500–$2,000.</p>
+                </div>
+                <div class="fundraising-progress">
+                    <div class="progress-label">
+                        <span>Budget Goal: 750,000 ₸</span>
+                        <span class="progress-text">Currently fundraising...</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" data-target="45">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-actions">
+                    <a href="{% url 'we_are_looking_for' %}" class="btn btn-primary">Become a Sponsor</a>
+                    <a href="#" class="btn btn-outline">Stay Updated</a>
+                </div>
+            </div>
+            
+            <!-- Additional Events -->
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-header">
+                        <h3>National Olympiad on Financial Literacy</h3>
+                        <span class="status-badge coming-soon">Coming Soon</span>
+                    </div>
+                    <p>National competition for students to test and expand their financial literacy knowledge.</p>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-header">
+                        <h3>National Olympiad on Investments</h3>
+                        <span class="status-badge coming-soon">Coming Soon</span>
+                    </div>
+                    <p>Competition focused on investment strategies, portfolio management, and financial analysis.</p>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-header">
+                        <h3>Training Center Program</h3>
+                        <span class="status-badge planning">In Planning</span>
+                    </div>
+                    <p>Program to begin training at a center for children from low-income and disadvantaged backgrounds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animate progress bar
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBar = document.querySelector('.progress-fill');
+        if (progressBar) {
+            const container = progressBar.closest('.progress-bar');
+            const target = parseInt(container.getAttribute('data-target')) || 45;
+            
+            setTimeout(() => {
+                progressBar.style.width = target + '%';
+            }, 500);
+        }
+    });
+</script>
+{% endblock %}
+

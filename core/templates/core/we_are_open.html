@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}We Have Launched - QazFinance{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title fade-in">We Have Launched a New Program</h1>
+    </div>
+</section>
+
+<section class="we-are-open-section">
+    <div class="container">
+        <div class="program-content fade-in">
+            <div class="program-intro">
+                <p class="intro-text">
+                    We're launching a free educational program in partnership with the <strong>Baqytty Shanyraq Foundation</strong>!
+                </p>
+                <p>
+                    Starting <strong>December 13th</strong>, every Saturday and Sunday at <strong>38/1 Y. Dukenuly Street</strong>, children will learn financial literacy, math, and the basics of investing.
+                </p>
+            </div>
+            
+            <div class="program-details">
+                <div class="detail-item">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-content">
+                        <h3>Location</h3>
+                        <p>38/1 Y. Dukenuly Street</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">📅</div>
+                    <div class="detail-content">
+                        <h3>Schedule</h3>
+                        <p>Every Saturday and Sunday</p>
+                        <p class="detail-subtext">Starting December 13th</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">📚</div>
+                    <div class="detail-content">
+                        <h3>What We Teach</h3>
+                        <p>Financial literacy, math, and the basics of investing</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="program-groups">
+                <h2>Two Groups Are Open:</h2>
+                <div class="groups-grid">
+                    <div class="group-card">
+                        <h3>Group 1</h3>
+                        <p>Children without medical conditions</p>
+                    </div>
+                    <div class="group-card">
+                        <h3>Group 2</h3>
+                        <p>Children with medical conditions / from low-income families</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="program-mission">
+                <p class="mission-statement">
+                    <strong>Our goal is to give every child access to a quality education.</strong>
+                </p>
+                <p class="mission-note">
+                    QazFinance is the first finance-edu organization for teenagers in Kazakhstan.
+                </p>
+            </div>
+            
+            <div class="program-cta">
+                <a href="{% url 'we_are_looking_for' %}" class="btn btn-primary btn-large">Apply to the Program</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

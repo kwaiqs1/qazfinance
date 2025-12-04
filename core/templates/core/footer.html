@@ -1,0 +1,38 @@
+{% load static %}
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>QazFinance</h3>
+                <p>Kazakhstan's first teen-founded, nonprofit educational organization dedicated to financial literacy and investing.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'what_we_do' %}">What We Do</a></li>
+                    <li><a href="{% url 'events' %}">Events</a></li>
+                    <li><a href="{% url 'blog_list' %}">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="{% url 'for_students' %}">For Students</a></li>
+                    <li><a href="{% url 'our_mission' %}">Our Mission</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'we_are_looking_for' %}">Join the Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>For inquiries and partnerships</p>
+                <a href="{% url 'we_are_looking_for' %}" class="btn btn-outline btn-small">Get in Touch</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {% now "Y" %} QazFinance. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+

@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }} - QazFinance{% endblock %}
+
+{% block content %}
+<article class="article-detail-page">
+    <div class="container">
+        <div class="article-header fade-in">
+            <div class="article-meta">
+                <span class="article-category">{{ article.get_category_display }}</span>
+                <time class="article-date">{{ article.published_date|date:"F d, Y" }}</time>
+            </div>
+            <h1 class="article-title">{{ article.title }}</h1>
+        </div>
+        
+        <div class="article-content fade-in">
+            <div class="article-description">
+                <p>{{ article.description }}</p>
+            </div>
+            <div class="article-body">
+                {{ article.content|linebreaks }}
+            </div>
+        </div>
+        
+        <div class="article-footer">
+            <a href="{% url 'blog_list' %}" class="btn btn-outline">← Back to Blog</a>
+        </div>
+    </div>
+</article>
+{% endblock %}
+

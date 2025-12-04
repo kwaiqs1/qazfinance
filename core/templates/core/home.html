@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home - QazFinance{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1 class="hero-title">Welcome to QazFinance</h1>
+            <p class="hero-subtitle">Kazakhstan's first teen-founded, nonprofit educational organization dedicated to financial literacy and investing.</p>
+            <p class="hero-description">
+                QazFinance is the first teen-founded non-profit finance-education organization in Kazakhstan, dedicated to expanding financial literacy, investment knowledge, and economic opportunity for youth nationwide through competitions, free learning platforms, and community programs.
+            </p>
+            <div class="hero-buttons">
+                <a href="#what-we-do" class="btn btn-primary btn-large">Get Started</a>
+                <a href="{% url 'we_are_looking_for' %}" class="btn btn-outline btn-large">Join the Team</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="finance-illustration">
+                <div class="floating-card card-1">📊</div>
+                <div class="floating-card card-2">💰</div>
+                <div class="floating-card card-3">📈</div>
+                <div class="floating-card card-4">🎓</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Pillars Section -->
+<section class="pillars-section" id="what-we-do">
+    <div class="container">
+        <h2 class="section-title fade-in">What We Do</h2>
+        <div class="pillars-grid">
+            <div class="pillar-card slide-up">
+                <div class="pillar-icon">🏆</div>
+                <h3>Competitions</h3>
+                <p>Organizing national competitions and olympiads in finance, including our flagship NFIC program with 600+ participants across 10+ cities.</p>
+            </div>
+            <div class="pillar-card slide-up">
+                <div class="pillar-icon">💻</div>
+                <h3>Online Learning</h3>
+                <p>Free courses on financial literacy, investing, and personal finance management with interactive lessons and certificates.</p>
+            </div>
+            <div class="pillar-card slide-up">
+                <div class="pillar-icon">🤝</div>
+                <h3>Inclusive Programs</h3>
+                <p>Educational programs for children with disabilities and from low-income families with individualized approach.</p>
+            </div>
+            <div class="pillar-card slide-up">
+                <div class="pillar-icon">👥</div>
+                <h3>Community & Hub</h3>
+                <p>Platform for learning, discussion, experience sharing, mentoring programs, and leadership projects.</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'what_we_do' %}" class="btn btn-outline">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<!-- Preview Cards Section -->
+<section class="preview-cards-section">
+    <div class="container">
+        <div class="preview-grid">
+            <!-- Our Mission Card -->
+            <div class="preview-card fade-in">
+                <h3>Our Mission</h3>
+                <p>The project aims to improve the level of financial knowledge among schoolchildren and students, including children from vulnerable groups, children with disabilities, and students from low-income families.</p>
+                <a href="{% url 'our_mission' %}" class="btn btn-text">Learn more →</a>
+            </div>
+            
+            <!-- Upcoming Events Card -->
+            <div class="preview-card fade-in">
+                <h3>Upcoming Events</h3>
+                <p>Hosting two national Olympics, and the National Financial Intelligence Challenge (NFIC) is our main goal. Currently raising a budget of 750,000 for NFIC.</p>
+                <a href="{% url 'events' %}" class="btn btn-text">View Events →</a>
+            </div>
+            
+            <!-- We Are Open Card -->
+            <div class="preview-card fade-in featured">
+                <div class="badge">New Program</div>
+                <h3>We Have Launched!</h3>
+                <p>Free educational program in partnership with <strong>Baqytty Shanyraq Foundation</strong>! Starting December 13th, every Saturday and Sunday at 38/1 Y. Dukenuly Street.</p>
+                <a href="{% url 'we_are_open' %}" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
