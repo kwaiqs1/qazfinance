@@ -10,7 +10,6 @@
                 <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
                 <a href="{% url 'what_we_do' %}" class="{% if request.resolver_match.url_name == 'what_we_do' %}active{% endif %}">What We Do</a>
                 <a href="{% url 'events' %}" class="{% if request.resolver_match.url_name == 'events' %}active{% endif %}">Upcoming Events</a>
-                <a href="{% url 'blog_list' %}" class="{% if request.resolver_match.url_name == 'blog_list' or request.resolver_match.url_name == 'article_detail' %}active{% endif %}">Blog</a>
                 <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Us</a>
                 {% if user.is_authenticated %}
                     <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
@@ -68,7 +67,6 @@
                 <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">MAIN</a>
                 <a href="{% url 'what_we_do' %}" class="{% if request.resolver_match.url_name == 'what_we_do' %}active{% endif %}">WHAT WE DO</a>
                 <a href="{% url 'events' %}" class="{% if request.resolver_match.url_name == 'events' %}active{% endif %}">UPCOMING EVENTS</a>
-                <a href="{% url 'blog_list' %}" class="{% if request.resolver_match.url_name == 'blog_list' or request.resolver_match.url_name == 'article_detail' %}active{% endif %}">BLOG</a>
                 <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">ABOUT US</a>
                 {% if user.is_authenticated %}
                     <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">DASHBOARD</a>

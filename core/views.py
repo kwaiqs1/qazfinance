@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
-from .models import Profile, Article
+from .models import Profile, Article, StudentResource, TeamMember
 from .forms import CustomUserCreationForm, ProfileForm, ArticleForm
 
 
@@ -31,7 +31,8 @@ def our_mission(request):
 
 def what_we_do(request):
     """What We Do page."""
-    articles_preview = Article.objects.all()[:6]
+    # Note: articles_preview is kept for potential future use but not required by template
+    articles_preview = Article.objects.all()[:6] if Article.objects.exists() else []
     return render(request, 'core/what_we_do.html', {
         'articles_preview': articles_preview,
     })
@@ -77,20 +78,19 @@ def article_detail(request, slug):
 
 
 def for_students(request):
-    """For Students page with student-only articles."""
-    articles = Article.objects.filter(for_students_only=True)
-    paginator = Paginator(articles, 9)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
+    """For Students page with student resources."""
+    resources = StudentResource.objects.filter(is_active=True)
     return render(request, 'core/for_students.html', {
-        'page_obj': page_obj,
+        'resources': resources,
     })
 
 
 def about_us(request):
     """About Us page."""
-    return render(request, 'core/about.html')
+    team_members = TeamMember.objects.all().order_by('order', 'name')
+    return render(request, 'core/about.html', {
+        'team_members': team_members,
+    })
 
 
 def register(request):
@@ -99,10 +99,12 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Create profile for new user
+            # Create profile for new user with all required fields
             Profile.objects.create(
                 user=user,
-                full_name=user.username
+                full_name=form.cleaned_data['full_name'],
+                school=form.cleaned_data['school'],
+                age=form.cleaned_data['age']
             )
             messages.success(request, 'Registration successful! Please log in.')
             return redirect('login')
@@ -136,8 +138,15 @@ def dashboard(request):
     student_articles_count = Article.objects.filter(for_students_only=True).count()
     recent_articles = Article.objects.all()[:5]
 
-    # Get user profile or create one
-    profile, created = Profile.objects.get_or_create(user=request.user)
+    # Get user profile or create one with defaults
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'full_name': request.user.username,
+            'school': '',
+            'age': 18
+        }
+    )
 
     return render(request, 'core/dashboard.html', {
         'articles_count': articles_count,
@@ -150,7 +159,14 @@ def dashboard(request):
 @login_required
 def profile_view(request):
     """User profile view and edit."""
-    profile, created = Profile.objects.get_or_create(user=request.user)
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'full_name': request.user.username,
+            'school': '',
+            'age': 18
+        }
+    )
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=profile)

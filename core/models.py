@@ -14,11 +14,12 @@ class Profile(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    full_name = models.CharField(max_length=200, blank=True)
+    full_name = models.CharField(max_length=200)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='Student')
     bio = models.TextField(blank=True)
     city = models.CharField(max_length=100, blank=True)
-    school = models.CharField(max_length=200, blank=True)
+    school = models.CharField(max_length=200)
+    age = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -57,4 +58,43 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_detail', kwargs={'slug': self.slug})
+
+
+class StudentResource(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    category = models.CharField(max_length=100, blank=True, help_text="e.g. 'Course', 'Program', 'Competition'")
+    link = models.URLField(blank=True, help_text="Optional external link")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.title
+
+
+class TeamMember(models.Model):
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=150)
+    bio = models.TextField(blank=True)
+    photo = models.ImageField(
+        upload_to="team_photos/",
+        blank=True,
+        null=True,
+        help_text="Upload a portrait photo for this team member."
+    )
+    photo_path = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Static path relative to the 'core' static folder, e.g. 'core/images/team/nursaya.jpg' (deprecated, use photo field instead)"
+    )
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "name"]
+
+    def __str__(self):
+        return f"{self.name} - {self.role}"
 

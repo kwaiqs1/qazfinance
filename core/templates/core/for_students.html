@@ -6,51 +6,40 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1 class="page-title fade-in">For Students</h1>
+        <h1 class="page-title fade-in">Resources for Students</h1>
         <p class="page-subtitle">
-            This section collects guides, checklists, and materials created especially for school and university students who want to master financial literacy and investing.
+            This section collects guides, courses, programs, and competitions created especially for school and university students who want to master financial literacy and investing.
         </p>
     </div>
 </section>
 
 <section class="for-students-section">
     <div class="container">
-        <div class="articles-grid">
-            {% for article in page_obj %}
-            <article class="article-card fade-in">
-                <div class="article-card-header">
-                    <span class="article-category">{{ article.get_category_display }}</span>
-                    <time class="article-date">{{ article.published_date|date:"M d, Y" }}</time>
-                </div>
-                <h2 class="article-title">
-                    <a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a>
-                </h2>
-                <p class="article-description">{{ article.description|truncatewords:25 }}</p>
-                <a href="{% url 'article_detail' article.slug %}" class="article-link">Read More →</a>
-            </article>
-            {% empty %}
-            <div class="no-articles">
-                <p>No student articles yet. Check back soon!</p>
+        {% if resources %}
+        <div class="resources-grid">
+            {% for resource in resources %}
+            <div class="resource-card fade-in">
+                {% if resource.category %}
+                <div class="resource-category">{{ resource.category }}</div>
+                {% endif %}
+                <h2 class="resource-title">{{ resource.title }}</h2>
+                <p class="resource-description">{{ resource.description }}</p>
+                {% if resource.link %}
+                <a href="{{ resource.link }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    Learn More →
+                </a>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
-        
-        {% if page_obj.has_other_pages %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page=1" class="pagination-link">First</a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Previous</a>
-            {% endif %}
-            
-            <span class="pagination-current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-            
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Last</a>
-            {% endif %}
+        {% else %}
+        <div class="no-resources fade-in">
+            <div class="no-resources-content">
+                <h2>No resources yet – coming soon!</h2>
+                <p>We're working on adding valuable resources for students. Check back soon for courses, programs, and competitions.</p>
+            </div>
         </div>
         {% endif %}
     </div>
 </section>
 {% endblock %}
-

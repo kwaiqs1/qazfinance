@@ -17,9 +17,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-this-in-production-please')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# For local development: Set DEBUG=True in environment variable or set it directly
+# Example: export DEBUG=True (Linux/Mac) or set DEBUG=True (Windows)
+# For production (Railway): DEBUG will be False by default
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["*"]
+
+# CSRF Trusted Origins for Railway deployment
+CSRF_TRUSTED_ORIGINS = [
+    "https://qazfinance.up.railway.app",
+    "https://*.up.railway.app",
+]
 
 
 # Application definition

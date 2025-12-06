@@ -6,6 +6,9 @@ from .models import Profile, Article
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-input'}))
+    full_name = forms.CharField(max_length=200, required=True, widget=forms.TextInput(attrs={'class': 'form-input'}))
+    school = forms.CharField(max_length=200, required=True, widget=forms.TextInput(attrs={'class': 'form-input'}))
+    age = forms.IntegerField(required=True, min_value=1, max_value=150, widget=forms.NumberInput(attrs={'class': 'form-input'}))
 
     class Meta:
         model = User
@@ -27,13 +30,14 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['full_name', 'role', 'bio', 'city', 'school']
+        fields = ['full_name', 'role', 'bio', 'city', 'school', 'age']
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-input'}),
             'role': forms.Select(attrs={'class': 'form-input'}),
             'bio': forms.Textarea(attrs={'rows': 4, 'class': 'form-input'}),
             'city': forms.TextInput(attrs={'class': 'form-input'}),
             'school': forms.TextInput(attrs={'class': 'form-input'}),
+            'age': forms.NumberInput(attrs={'class': 'form-input', 'min': 1, 'max': 150}),
         }
 
 
